@@ -3,7 +3,7 @@
 
 FROM ubuntu:16.04
 
-ENV OVSV="v2.9.0"
+ENV OVSV="v2.9.2"
 ENV DPDK="18.02.1"
 ENV MININETV="2.2.2"
 
