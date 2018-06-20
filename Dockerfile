@@ -44,6 +44,7 @@ RUN \
     iputils-ping \
     iproute2 \
     ladvd \
+    locales \
     libnuma-dev \
     libpython2.7-dev \
     libpython3-dev \
