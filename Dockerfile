@@ -103,7 +103,6 @@ RUN \
   $AG purge pylint && \
   $PIP multiprocessing scapy==2.3.2 $PIPDEPS && \
   $PIP3 $PIPDEPS && \
-  $PIP ryu && \
   $PIP3 ryu
 
 # Install docker in docker...
