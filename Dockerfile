@@ -92,12 +92,6 @@ RUN \
           perl -pi -e "s/${i}//g" util/install.sh ; done && \
       util/install.sh -n && \
     cd .. && \
-    git clone https://github.com/google/pytype.git && \
-      cd pytype && \
-      git submodule init && \
-      git submodule update && \
-      python2 $SETUPQ install && \
-    cd .. && \
   cd / && rm -rf $BUILDDIR && \
   $AG purge $OVSDEPS linux-headers-`uname -r` && \
   $AG autoremove
