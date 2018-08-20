@@ -5,7 +5,7 @@ FROM ubuntu:16.04
 
 ENV OVSV="v2.9.2"
 ENV DPDK="18.02.2"
-ENV MININETV="2.2.2"
+ENV MININETV="2.3.0d3"
 
 ENV OVSDEPS="autoconf automake libpcap-dev libcap-ng-dev libnuma-dev libtool libssl-dev linux-headers-generic libffi-dev"
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PIPDEPS="setuptools wheel virtualenv"
 ENV PIP="pip -q --no-cache-dir install --upgrade"
 ENV PIP3="pip3 -q --no-cache-dir install --upgrade"
-ENV SETUPQ="setup.py -q"
+ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV MAKEFLAGS="-s"
 ENV BUILDDIR="/var/tmp/build"
 ENV DPDK_TARGET=x86_64-native-linuxapp-gcc
@@ -84,13 +84,15 @@ RUN \
       ./configure --enable-silent-rules --quiet --with-dpdk=`echo ../dpdk*/$DPDK_TARGET` && \
       make install && \
     cd .. && \
-    git clone https://github.com/mininet/mininet -b $MININETV && \
+    git clone https://github.com/mininet/mininet && \
       cd mininet && \
-      perl -pi -e "s/setup.py/${SETUPQ}/g" Makefile && \
+      git checkout -b mininet-$mininetv $mininetv && \
+      perl -pi -e "s/setup.py install/${SETUPQ}/g" Makefile && \
       perl -pi -e "s/apt-get/${AG}/g" util/install.sh && \
       for i in ssh pep8 pyflakes python-pexpect pylint xterm ; do \
           perl -pi -e "s/${i}//g" util/install.sh ; done && \
-      util/install.sh -n && \
+      PYTHON=python2 util/install.sh -n && \
+      PYTHON=python3 util/install.sh -n && \
     cd .. && \
   cd / && rm -rf $BUILDDIR && \
   $AG purge $OVSDEPS linux-headers-`uname -r` && \
@@ -101,8 +103,9 @@ RUN \
   $AG update && \
   $AG install cython3 && \
   $AG purge pylint && \
+  $PIP setuptools && \
   $PIP multiprocessing scapy==2.3.2 $PIPDEPS && \
-  $PIP3 $PIPDEPS && \
+  $PIP3 scapy $PIPDEPS && \
   $PIP3 ryu
 
 # Install docker in docker...
