@@ -12,7 +12,6 @@ ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV DEBIAN_FRONTEND=noninteractive
 # Pre-install Ryu and basic dependencies - so test image has less work
 ENV PIPDEPS="setuptools wheel virtualenv"
-ENV PIP="pip -q --no-cache-dir install --upgrade"
 ENV PIP3="pip3 -q --no-cache-dir install --upgrade"
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV MAKEFLAGS="-s"
@@ -91,7 +90,6 @@ RUN \
       perl -pi -e "s/apt-get/${AG}/g" util/install.sh && \
       for i in ssh pep8 pyflakes python-pexpect pylint xterm ; do \
           perl -pi -e "s/${i}//g" util/install.sh ; done && \
-      PYTHON=python2 util/install.sh -n && \
       PYTHON=python3 util/install.sh -n && \
     cd .. && \
   cd / && rm -rf $BUILDDIR && \
@@ -103,8 +101,6 @@ RUN \
   $AG update && \
   $AG install cython3 && \
   $AG purge pylint && \
-  $PIP setuptools && \
-  $PIP multiprocessing scapy==2.3.2 $PIPDEPS && \
   $PIP3 scapy $PIPDEPS && \
   $PIP3 ryu
 
