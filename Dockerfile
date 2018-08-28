@@ -36,6 +36,7 @@ RUN \
     build-essential \
     curl \
     dsniff \
+    freeradius \
     fping \
     gcc \
     git \
