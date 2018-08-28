@@ -46,7 +46,6 @@ RUN \
     ladvd \
     locales \
     libnuma-dev \
-    libpython2.7-dev \
     libpython3-dev \
     libyaml-dev \
     lsof \
@@ -60,9 +59,7 @@ RUN \
     parallel \
     patch \
     psmisc \
-    python-pip \
     python3-pip \
-    python-six \
     software-properties-common \
     sudo \
     tcpdump \
