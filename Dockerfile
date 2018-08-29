@@ -5,7 +5,7 @@ FROM ubuntu:16.04
 
 ENV OVSV="v2.9.2"
 ENV DPDK="18.02.2"
-ENV MININETV="2.3.0d3"
+ENV MININETV="2.3.0d4   "
 
 ENV OVSDEPS="autoconf automake libpcap-dev libcap-ng-dev libnuma-dev libtool libssl-dev linux-headers-generic libffi-dev"
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
@@ -46,7 +46,6 @@ RUN \
     ladvd \
     locales \
     libnuma-dev \
-    libpython2.7-dev \
     libpython3-dev \
     libyaml-dev \
     lsof \
@@ -60,9 +59,7 @@ RUN \
     parallel \
     patch \
     psmisc \
-    python-pip \
     python3-pip \
-    python-six \
     software-properties-common \
     sudo \
     tcpdump \
