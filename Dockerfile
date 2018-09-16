@@ -3,9 +3,8 @@
 
 FROM ubuntu:16.04
 
-ENV OVSV="v2.9.2"
+ENV OVSV="v2.10.0"
 ENV DPDK="18.02.2"
-ENV MININETV="2.3.0d4   "
 
 ENV OVSDEPS="autoconf automake libpcap-dev libcap-ng-dev libnuma-dev libtool libssl-dev linux-headers-generic libffi-dev"
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
