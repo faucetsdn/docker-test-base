@@ -4,7 +4,7 @@
 FROM ubuntu:16.04
 
 # TODO: 2.10.0 disconnects during stacking tests.
-ENV OVSV="v2.9.3"
+ENV OVSV="v2.9.2"
 ENV DPDK="18.02.2"
 
 ENV OVSDEPS="autoconf automake libpcap-dev libcap-ng-dev libnuma-dev libtool libssl-dev linux-headers-generic libffi-dev"
