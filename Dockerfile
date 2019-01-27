@@ -36,6 +36,7 @@ RUN \
     build-essential \
     curl \
     dsniff \
+    ebtables \
     freeradius \
     fping \
     gcc \
