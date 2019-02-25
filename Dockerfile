@@ -43,6 +43,7 @@ RUN /setupproxy.sh && \
     locales \
     libnuma-dev \
     libpython3-dev \
+    librsvg2-bin \
     libyaml-dev \
     lsof \
     netcat \
