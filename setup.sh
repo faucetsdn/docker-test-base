@@ -8,15 +8,10 @@ git config --global url.https://github.com/.insteadOf git://github.com/
 mkdir -p $BUILDDIR
 
 cd $BUILDDIR
-wget -q -O- http://fast.dpdk.org/rel/dpdk-$DPDK.tar.xz | tar -Jxf-
-cd dpdk*
-make install T=$DPDK_TARGET DESTDIR=install
-
-cd $BUILDDIR
 git clone https://github.com/openvswitch/ovs -b ${OVSV}
 cd ovs
 ./boot.sh
-./configure --enable-silent-rules --quiet --with-dpdk=`echo ../dpdk*/$DPDK_TARGET`
+./configure --enable-silent-rules --quiet
 make install
 
 cd $BUILDDIR
