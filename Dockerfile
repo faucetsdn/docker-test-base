@@ -3,8 +3,7 @@
 
 FROM ubuntu:18.04
 
-# TODO: 2.10.0 disconnects during stacking tests.
-ENV OVSV="v2.9.2"
+ENV OVSV="v2.11.0"
 ENV MININETV="2.3.0d4"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
