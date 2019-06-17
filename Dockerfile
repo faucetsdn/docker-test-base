@@ -35,6 +35,7 @@ RUN /setupproxy.sh && \
     iperf \
     iputils-ping \
     iproute2 \
+    isc-dhcp-client \
     ladvd \
     locales \
     libpython3-dev \
