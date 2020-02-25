@@ -66,7 +66,7 @@ RUN mk-build-deps openvswitch -i -r -t "$AG" && \
 
 # Install docker in docker...
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
+    add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
     $AG update && \
     $AG install docker-ce
 
