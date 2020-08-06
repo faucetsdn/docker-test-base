@@ -3,36 +3,35 @@
 
 FROM ubuntu:18.04
 
-ENV OVSV="v2.12.0"
+ENV OVSV="v2.13.1"
 ENV MININETV="2.3.0d6"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
-ENV DEBIAN_FRONTEND=noninteractive
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
-ENV BUILDDIR="/var/tmp/build"
+ENV DEBIAN_FRONTEND=noninteractive
+ENV BUILD_DIR="/var/tmp/build"
+ENV BUILD_DEPS="devscripts"
 
 COPY setup.sh /
 COPY setupproxy.sh /
 
 RUN /setupproxy.sh && \
   sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list && \
-  $AG update && \
-  $AG install \
+  ${AG} update && \
+  ${AG} install \
     apt-transport-https \
     bc \
     bridge-utils \
-    build-essential \
     ca-certificates \
     curl \
-    devscripts \
     dsniff \
     ebtables \
     equivs \
     freeradius \
     fping \
     git \
-    gnupg-agent \
-    iperf \
+    gnupg \
+    iperf3 \
     iputils-ping \
     iproute2 \
     isc-dhcp-client \
@@ -41,6 +40,7 @@ RUN /setupproxy.sh && \
     libpython3-dev \
     librsvg2-bin \
     libyaml-dev \
+    lsb-release \
     lsof \
     netcat \
     ndisc6 \
@@ -52,27 +52,26 @@ RUN /setupproxy.sh && \
     psmisc \
     python3-pip \
     python3-venv \
-    software-properties-common \
     sudo \
     tcpdump \
     tshark \
     vlan \
     wget \
-    wpasupplicant
+    wpasupplicant \
+    ${BUILD_DEPS}
 
 # Install Open vSwitch/Mininet
-RUN mk-build-deps openvswitch -i -r -t "$AG" && \
-    /setup.sh
+RUN mk-build-deps openvswitch -i -r -t "${AG}" && /setup.sh
 
 # Install docker in docker...
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
-    add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" && \
-    $AG update && \
-    $AG install docker-ce
+    echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
+    ${AG} update && \
+    ${AG} install docker-ce
 
 # Cleanup
-RUN $AG purge openvswitch-build-deps && \
-    $AG autoremove --purge && \
-    $AG clean && \
+RUN ${AG} purge openvswitch-build-deps ${BUILD_DEPS} && \
+    ${AG} autoremove --purge && \
+    ${AG} clean && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf $BUILDDIR
+    rm -rf "${BUILD_DIR}"

@@ -5,23 +5,24 @@ source /venv/bin/activate
 
 git config --global url.https://github.com/.insteadOf git://github.com/
 
-mkdir -p $BUILDDIR
+mkdir -p "${BUILD_DIR}"
+cd "${BUILD_DIR}" || exit 1
 
-cd $BUILDDIR
-git clone https://github.com/openvswitch/ovs -b ${OVSV}
-cd ovs
+git clone https://github.com/openvswitch/ovs
+cd ovs || exit 1
+git checkout -b "${OVSV}" "${OVSV}"
 ./boot.sh
 ./configure --enable-silent-rules --quiet
-make install
+make -j4 install
 
-cd $BUILDDIR
+cd "${BUILD_DIR}" || exit 1
 git clone https://github.com/mininet/mininet
-cd mininet
-git checkout -b mininet-$MININETV $MININETV
+cd mininet || exit 1
+git checkout -b "mininet-${MININETV}" "${MININETV}"
 sed -i -e "s/setup.py install/${SETUPQ}/g" Makefile
 sed -i -e "s/apt-get/${AG}/g" util/install.sh
 for i in ssh pep8 pyflakes python-pexpect pylint xterm ; do
     sed -i -e "s/${i}//g" util/install.sh
 done
-PYTHON=/venv/bin/python3 util/install.sh -n
+util/install.sh -n
 cp util/m /usr/bin/
