@@ -31,6 +31,7 @@ RUN /setupproxy.sh \
            fping \
            git \
            gnupg \
+           iperf \
            iperf3 \
            iputils-ping \
            iproute2 \
