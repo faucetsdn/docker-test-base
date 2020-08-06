@@ -28,6 +28,5 @@ jobs:
             --tag faucet/test-base:latest \
             --platform linux/amd64 \
             --output "type=registry" \
-            --squash \
             --file Dockerfile \
             .
