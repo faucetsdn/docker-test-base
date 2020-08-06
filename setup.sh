@@ -25,4 +25,5 @@ for i in ssh pep8 pyflakes python-pexpect pylint xterm ; do
     sed -i -e "s/${i}//g" util/install.sh
 done
 util/install.sh -n
+pip3 install -q .
 cp util/m /usr/bin/
