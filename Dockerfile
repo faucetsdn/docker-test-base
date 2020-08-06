@@ -31,8 +31,8 @@ RUN /setupproxy.sh && \
     freeradius \
     fping \
     git \
-    gnupg-agent \
-    iperf \
+    gnupg \
+    iperf3 \
     iputils-ping \
     iproute2 \
     isc-dhcp-client \
