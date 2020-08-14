@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "will cite" | parallel --citation
 
 git config --global url.https://github.com/.insteadOf git://github.com/
 
