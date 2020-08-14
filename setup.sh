@@ -1,7 +1,5 @@
 #!/bin/bash
 
-python3 -m venv /venv
-source /venv/bin/activate
 
 git config --global url.https://github.com/.insteadOf git://github.com/
 

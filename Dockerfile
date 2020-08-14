@@ -11,6 +11,7 @@ ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
 ENV BUILD_DEPS="devscripts"
+ENV PATH="/venv/bin:$PATH"
 
 COPY setup.sh /
 COPY setupproxy.sh /
@@ -60,6 +61,7 @@ RUN /setupproxy.sh \
            wget \
            wpasupplicant \
            ${BUILD_DEPS} \
+    && python3 -m venv /venv \
 # Install Open vSwitch/Mininet
     && mk-build-deps openvswitch -i -r -t "${AG}" \
     && /setup.sh \
