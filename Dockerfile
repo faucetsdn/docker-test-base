@@ -10,7 +10,7 @@ ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
-ENV BUILD_DEPS="devscripts"
+ENV BUILD_DEPS="devscripts software-properties-common"
 ENV PATH="/venv/bin:$PATH"
 
 COPY setup.sh /
@@ -37,6 +37,7 @@ RUN /setupproxy.sh \
            iputils-ping \
            iproute2 \
            isc-dhcp-client \
+           kmod \
            ladvd \
            locales \
            libpython3-dev \
@@ -70,6 +71,9 @@ RUN /setupproxy.sh \
     && echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list \
     && ${AG} update \
     && ${AG} install docker-ce \
+# Upgrade git for github actions
+    && add-apt-repository -y ppa:git-core/ppa \
+    && ${AG} install git \
 # Cleanup
     && ${AG} purge openvswitch-build-deps ${BUILD_DEPS} \
     && ${AG} autoremove --purge \
