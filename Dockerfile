@@ -3,7 +3,7 @@
 
 FROM ubuntu:18.04
 
-ENV OVSV="v2.13.1"
+ENV OVSV="v2.14.0"
 ENV MININETV="2.3.0d6"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
