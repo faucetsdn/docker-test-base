@@ -3,14 +3,14 @@
 
 FROM ubuntu:18.04
 
-ENV OVSV="v2.13.1"
+ENV OVSV="v2.14.0"
 ENV MININETV="2.3.0d6"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
-ENV BUILD_DEPS="devscripts"
+ENV BUILD_DEPS="devscripts software-properties-common"
 ENV PATH="/venv/bin:$PATH"
 
 COPY setup.sh /
@@ -19,6 +19,7 @@ COPY setupproxy.sh /
 RUN /setupproxy.sh \
     && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && ${AG} update \
+    && ${AG} upgrade \
     && ${AG} install \
            apt-transport-https \
            bc \
@@ -37,6 +38,7 @@ RUN /setupproxy.sh \
            iputils-ping \
            iproute2 \
            isc-dhcp-client \
+           kmod \
            ladvd \
            locales \
            libpython3-dev \
@@ -70,6 +72,9 @@ RUN /setupproxy.sh \
     && echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list \
     && ${AG} update \
     && ${AG} install docker-ce \
+# Upgrade git for github actions
+    && add-apt-repository -y ppa:git-core/ppa \
+    && ${AG} install git \
 # Cleanup
     && ${AG} purge openvswitch-build-deps ${BUILD_DEPS} \
     && ${AG} autoremove --purge \
