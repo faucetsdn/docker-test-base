@@ -19,6 +19,7 @@ COPY setupproxy.sh /
 RUN /setupproxy.sh \
     && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && ${AG} update \
+    && ${AG} upgrade \
     && ${AG} install \
            apt-transport-https \
            bc \
