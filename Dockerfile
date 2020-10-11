@@ -26,6 +26,7 @@ RUN /setupproxy.sh \
            bridge-utils \
            ca-certificates \
            curl \
+           dnsmasq \
            dsniff \
            ebtables \
            equivs \
