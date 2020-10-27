@@ -13,5 +13,7 @@ case "${arch}" in
     ;;
     i386)
         ${AG} install docker.io
+        mv "${BUILD_DIR}/docker.init.d" /etc/init.d/docker
+        touch /etc/default/docker
     ;;
 esac

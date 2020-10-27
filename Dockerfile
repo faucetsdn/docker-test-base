@@ -13,12 +13,13 @@ ENV BUILD_DIR="/var/tmp/build"
 ENV BUILD_DEPS="devscripts software-properties-common"
 ENV PATH="/venv/bin:$PATH"
 
-COPY setup.sh /
-COPY setupproxy.sh /
-COPY dind.sh /
+COPY bin/setup.sh /
+COPY bin/setupproxy.sh /
+COPY bin/dind.sh /
+COPY etc/init.d/docker /docker.init.d
 
 RUN mkdir -p ${BUILD_DIR} \
-    && mv /setup.sh /setupproxy.sh /dind.sh ${BUILD_DIR} \
+    && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
     && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && ${AG} update \
