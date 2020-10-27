@@ -15,8 +15,11 @@ ENV PATH="/venv/bin:$PATH"
 
 COPY setup.sh /
 COPY setupproxy.sh /
+COPY dind.sh /
 
-RUN /setupproxy.sh \
+RUN mkdir -p ${BUILD_DIR} \
+    && mv /setup.sh /setupproxy.sh /dind.sh ${BUILD_DIR} \
+    && ${BUILD_DIR}/setupproxy.sh \
     && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && ${AG} update \
     && ${AG} upgrade \
@@ -67,12 +70,9 @@ RUN /setupproxy.sh \
     && python3 -m venv /venv \
 # Install Open vSwitch/Mininet
     && mk-build-deps openvswitch -i -r -t "${AG}" \
-    && /setup.sh \
+    && ${BUILD_DIR}/setup.sh \
 # Install docker in docker...
-    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - \
-    && echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list \
-    && ${AG} update \
-    && ${AG} install docker-ce \
+    && ${BUILD_DIR}/dind.sh \
 # Upgrade git for github actions
     && add-apt-repository -y ppa:git-core/ppa \
     && ${AG} install git \

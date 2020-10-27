@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 echo "will cite" | parallel --citation
 
 git config --global url.https://github.com/.insteadOf git://github.com/
