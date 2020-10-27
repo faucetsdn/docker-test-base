@@ -16,9 +16,10 @@ ENV PATH="/venv/bin:$PATH"
 COPY bin/setup.sh /
 COPY bin/setupproxy.sh /
 COPY bin/dind.sh /
+COPY etc/init.d/docker /docker.init.d
 
 RUN mkdir -p ${BUILD_DIR} \
-    && mv /setup.sh /setupproxy.sh /dind.sh ${BUILD_DIR} \
+    && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
     && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && ${AG} update \
