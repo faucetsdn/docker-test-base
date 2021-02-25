@@ -1,7 +1,7 @@
 ## Image name: faucet/test-base
 ## Base image for FAUCET tests.
 
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 
 ENV OVSV="v2.14.0"
 ENV MININETV="2.3.0d6"
