@@ -3,8 +3,8 @@
 
 FROM ubuntu:18.04
 
-ENV OVSV="v2.14.0"
 ENV MININETV="2.3.0d6"
+ENV OVSV="v2.15.0"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
@@ -48,6 +48,7 @@ RUN mkdir -p ${BUILD_DIR} \
            locales \
            libpython3-dev \
            librsvg2-bin \
+           libunbound-dev \
            libyaml-dev \
            lsb-release \
            lsof \
