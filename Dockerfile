@@ -1,7 +1,7 @@
 ## Image name: faucet/test-base
 ## Base image for FAUCET tests.
 
-FROM ubuntu:18.04
+FROM debian:buster
 
 ENV OVSV="v2.15.0"
 ENV MININETV="2.3.0"
@@ -21,7 +21,7 @@ COPY etc/init.d/docker /docker.init.d
 RUN mkdir -p ${BUILD_DIR} \
     && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
-    && sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
+    && cat /usr/share/doc/apt/examples/sources.list | sed -e 's/#deb-src/deb-src/' > /etc/apt/sources.list \
     && ${AG} update \
     && ${AG} upgrade \
     && ${AG} install \
@@ -46,6 +46,7 @@ RUN mkdir -p ${BUILD_DIR} \
            kmod \
            ladvd \
            locales \
+           locales-all \
            libpython3-dev \
            librsvg2-bin \
            libunbound-dev \
@@ -69,18 +70,20 @@ RUN mkdir -p ${BUILD_DIR} \
            wget \
            wpasupplicant \
            ${BUILD_DEPS} \
+# Create venv
     && python3 -m venv /venv \
 # Install Open vSwitch/Mininet
     && mk-build-deps openvswitch -i -r -t "${AG}" \
     && ${BUILD_DIR}/setup.sh \
 # Install docker in docker...
     && ${BUILD_DIR}/dind.sh \
-# Upgrade git for github actions
-    && add-apt-repository -y ppa:git-core/ppa \
-    && ${AG} install git \
 # Cleanup
     && ${AG} purge openvswitch-build-deps ${BUILD_DEPS} \
     && ${AG} autoremove --purge \
     && ${AG} clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf "${BUILD_DIR}"
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
