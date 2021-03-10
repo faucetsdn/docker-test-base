@@ -22,9 +22,8 @@ cd mininet || exit 1
 git checkout -b "mininet-${MININETV}" "${MININETV}"
 sed -i -e "s/setup.py install/${SETUPQ}/g" Makefile
 sed -i -e "s/apt-get/${AG}/g" util/install.sh
-for i in ssh pep8 pyflakes python-pexpect pylint xterm ; do
+for i in ssh pep8 pyflakes3 python-pexpect pylint xterm ; do
     sed -i -e "s/${i}//g" util/install.sh
 done
-util/install.sh -n
-pip3 install -q .
+PYTHON=/venv/bin/python util/install.sh -n
 cp util/m /usr/bin/

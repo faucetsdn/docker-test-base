@@ -3,8 +3,8 @@
 
 FROM ubuntu:18.04
 
-ENV MININETV="2.3.0d6"
 ENV OVSV="v2.15.0"
+ENV MININETV="2.3.0"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV SETUPQ="setup.py -q easy_install --always-unzip ."
