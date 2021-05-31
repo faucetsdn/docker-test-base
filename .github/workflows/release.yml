@@ -27,8 +27,8 @@ jobs:
       - name: Run buildx
         run: |
           docker buildx build \
-            --tag faucet/test-base:${{ github.event.release.tag_name }} \
-            --tag faucet/test-base:latest \
+            --tag c65sdn/test-base:${{ github.event.release.tag_name }} \
+            --tag c65sdn/test-base:latest \
             --platform linux/386,linux/amd64 \
             --output "type=registry" \
             --file Dockerfile \
