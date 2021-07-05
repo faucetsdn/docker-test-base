@@ -9,6 +9,8 @@ jobs:
   docker-image:
     name: "Build docker image"
     runs-on: ubuntu-latest
+    environment:
+      name: "release"
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
