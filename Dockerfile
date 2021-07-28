@@ -36,6 +36,7 @@ RUN mkdir -p ${BUILD_DIR} \
            equivs \
            freeradius \
            fping \
+           fuse-overlayfs \
            git \
            gnupg \
            iperf \
