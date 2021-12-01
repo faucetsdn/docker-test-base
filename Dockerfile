@@ -3,7 +3,7 @@
 
 FROM debian:buster
 
-ENV OVSV="v2.15.1"
+ENV OVSV="v2.16.1"
 ENV MININETV="2.3.0"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
