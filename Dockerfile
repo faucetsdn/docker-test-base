@@ -1,13 +1,12 @@
 ## Image name: faucet/test-base
 ## Base image for FAUCET tests.
 
-FROM debian:buster
+FROM debian:bullseye
 
 ENV OVSV="v2.16.2"
 ENV MININETV="2.3.0"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
-ENV SETUPQ="setup.py -q easy_install --always-unzip ."
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
 ENV BUILD_DEPS="devscripts software-properties-common"
