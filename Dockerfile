@@ -3,7 +3,7 @@
 
 FROM debian:bullseye
 
-ENV OVSV="v2.17.2"
+ENV OVSV="v3.0.0"
 ENV MININETV="2.3.0"
 
 ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
