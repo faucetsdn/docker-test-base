@@ -21,7 +21,7 @@ jobs:
       - name: Run buildx
         run: |
           docker buildx build \
-            --tag faucet/test-base:test \
+            --tag c65sdn/test-base:test \
             --platform linux/386,linux/amd64 \
             --file Dockerfile \
             .
