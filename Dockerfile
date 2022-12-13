@@ -20,7 +20,7 @@ COPY etc/init.d/docker /docker.init.d
 RUN mkdir -p ${BUILD_DIR} \
     && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
-    && cat /usr/share/doc/apt/examples/sources.list | sed -e 's/#deb-src/deb-src/' > /etc/apt/sources.list \
+    && sed -n '/^deb\s/s//deb-src /p' /etc/apt/sources.list > /etc/apt/sources.list.d/deb-src.list \
     && ${AG} update \
     && ${AG} upgrade \
     && ${AG} install \
