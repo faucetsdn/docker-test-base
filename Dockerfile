@@ -6,7 +6,7 @@ FROM debian:bullseye
 ENV OVSV="v3.0.2"
 ENV MININETV="2.3.0"
 
-ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
+ENV AG="apt-get -y --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
 ENV BUILD_DEPS="devscripts software-properties-common"
@@ -20,7 +20,7 @@ COPY etc/init.d/docker /docker.init.d
 RUN mkdir -p ${BUILD_DIR} \
     && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
-    && cat /usr/share/doc/apt/examples/sources.list | sed -e 's/#deb-src/deb-src/' > /etc/apt/sources.list \
+    && sed -n '/^deb\s/s//deb-src /p' /etc/apt/sources.list > /etc/apt/sources.list.d/deb-src.list \
     && ${AG} update \
     && ${AG} upgrade \
     && ${AG} install \
