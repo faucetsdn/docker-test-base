@@ -6,7 +6,7 @@ FROM debian:bullseye
 ENV OVSV="v3.0.1"
 ENV MININETV="2.3.0"
 
-ENV AG="apt-get -qqy --no-install-recommends -o=Dpkg::Use-Pty=0"
+ENV AG="apt-get -y --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUILD_DIR="/var/tmp/build"
 ENV BUILD_DEPS="devscripts software-properties-common"
