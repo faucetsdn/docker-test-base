@@ -46,6 +46,7 @@ RUN mkdir -p ${BUILD_DIR} \
            ladvd \
            locales \
            locales-all \
+           libnuma1 \
            libpython3-dev \
            librsvg2-bin \
            libunbound-dev \
@@ -82,6 +83,8 @@ RUN mkdir -p ${BUILD_DIR} \
     && ${AG} clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf "${BUILD_DIR}"
+
+RUN ovsdb-tool --help
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
