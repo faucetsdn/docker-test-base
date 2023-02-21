@@ -44,6 +44,7 @@ RUN mkdir -p ${BUILD_DIR} \
            isc-dhcp-client \
            kmod \
            ladvd \
+           libnuma1 \
            locales \
            locales-all \
            libpython3-dev \
@@ -82,7 +83,7 @@ RUN mkdir -p ${BUILD_DIR} \
     && ${AG} clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf "${BUILD_DIR}"
-
+RUN ovsdb-tool --help
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
