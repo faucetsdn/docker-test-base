@@ -47,7 +47,6 @@ RUN mkdir -p ${BUILD_DIR} \
            libnuma1 \
            locales \
            locales-all \
-           libnuma1 \
            libpython3-dev \
            librsvg2-bin \
            libunbound-dev \
