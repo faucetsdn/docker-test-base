@@ -4,7 +4,7 @@
 FROM debian:bullseye
 
 ENV OVSV="v3.1.1"
-ENV MININETV="2.3.0"
+ENV MININETV="2.3.1b2"
 
 ENV AG="apt-get -y --no-install-recommends -o=Dpkg::Use-Pty=0"
 ENV DEBIAN_FRONTEND=noninteractive
