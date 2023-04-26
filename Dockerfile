@@ -1,7 +1,7 @@
 ## Image name: faucet/test-base
 ## Base image for FAUCET tests.
 
-FROM debian:bullseye
+FROM debian:bookworm
 
 ENV OVSV="v3.1.1"
 ENV MININETV="2.3.1b2"
@@ -20,7 +20,7 @@ COPY etc/init.d/docker /docker.init.d
 RUN mkdir -p ${BUILD_DIR} \
     && mv /setup.sh /setupproxy.sh /dind.sh /docker.init.d "${BUILD_DIR}" \
     && ${BUILD_DIR}/setupproxy.sh \
-    && sed -n '/^deb\s/s//deb-src /p' /etc/apt/sources.list > /etc/apt/sources.list.d/deb-src.list \
+    && sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/debian.sources \
     && ${AG} update \
     && ${AG} upgrade \
     && ${AG} install \
@@ -50,10 +50,10 @@ RUN mkdir -p ${BUILD_DIR} \
            libpython3-dev \
            librsvg2-bin \
            libunbound-dev \
+           libxdp1 \
            libyaml-dev \
            lsb-release \
            lsof \
-           netcat \
            ndisc6 \
            net-tools \
            netcat-openbsd \
