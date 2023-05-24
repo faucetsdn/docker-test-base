@@ -26,7 +26,6 @@ RUN mkdir -p ${BUILD_DIR} \
     && ${AG} install \
            apt-transport-https \
            bc \
-           bridge-utils \
            ca-certificates \
            curl \
            dnsmasq \
@@ -66,7 +65,6 @@ RUN mkdir -p ${BUILD_DIR} \
            sudo \
            tcpdump \
            tshark \
-           vlan \
            wget \
            wpasupplicant \
            ${BUILD_DEPS} \
