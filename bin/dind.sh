@@ -8,8 +8,8 @@ arch=$(dpkg --print-architecture)
 
 case "${arch}" in
     amd64)
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-        echo "deb [arch=${arch}] https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable" > /etc/apt/sources.list.d/docker.list
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        echo "deb [arch=${arch} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable" > /etc/apt/sources.list.d/docker.list
         ${AG} update
         ${AG} install docker-ce
     ;;
