@@ -64,10 +64,13 @@ RUN mkdir -p ${BUILD_DIR} \
            python3-venv \
            sudo \
            tcpdump \
+           traceroute \
            tshark \
            wget \
            wpasupplicant \
            ${BUILD_DEPS} \
+# Configure preferred commands
+    && update-alternatives --set traceroute6 /usr/bin/traceroute6.db \
 # Create venv
     && python3 -m venv /venv \
 # Install Open vSwitch/Mininet
