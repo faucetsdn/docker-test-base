@@ -3,7 +3,7 @@
 
 FROM debian:bookworm
 
-ENV OVSV="v3.2.2"
+ENV OVSV="v3.3.0"
 ENV MININETV="2.3.1b4"
 
 ENV AG="apt-get -y --no-install-recommends -o=Dpkg::Use-Pty=0"
