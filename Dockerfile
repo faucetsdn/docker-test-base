@@ -1,7 +1,7 @@
 ## Image name: faucet/test-base
 ## Base image for FAUCET tests.
 
-FROM debian:bookworm
+FROM debian:trixie-20260316
 
 ENV OVSV="v3.7.0"
 ENV MININETV="2.3.1b4"
